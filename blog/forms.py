@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 choices = Category.objects.all().values_list('name', 'name')
 
@@ -11,7 +11,7 @@ for item in choices:
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'category', 'author', 'body', 'snippet')
+        fields = ('title', 'title_tag', 'category', 'author', 'body', 'snippet', 'header_image')
 
         widgets = {
             'title': forms.TextInput (attrs={'class': 'form-control', 'placeholder': 'Title'}),
@@ -25,12 +25,20 @@ class PostForm(forms.ModelForm):
 class EditForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'body', 'snippet')
+        fields = ('title', 'body', 'snippet', 'header_image')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title'}),
-            #'title_tag': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Title Tag'}),
-            #'author': forms.Select(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Body'}),
             'snippet': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Snippet'}),
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'body')
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
         }

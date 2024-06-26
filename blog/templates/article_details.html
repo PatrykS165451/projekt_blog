@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %}{{ post.title_tag }} - My Blog{% endblock %}
 
 {% block content %}
+
+<!-- Prosty CSS'ik dla dużych zdjęć -->
+<style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+</style>  
 
 <h1>{{ post.title }}</h1>
 <small>By: {{ post.author }} - {{ post.post_date }} &emsp;
@@ -13,9 +23,59 @@
     {% endif %}
 <hr>
 <br/>
+{% if post.header_image %}
+<img src="{{ post.header_image.url}}"><br/><br/>
+{% endif %}
+
 {{ post.body }}
 
+<br/>
+
+<!-- Info o autorze -->
+<hr>
+<br/>
+<div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-2">
+        {% if post.author.profile.profile_pic %}
+            <img src="{{post.author.profile.profile_pic.url}}" class="card-img">
+        {% else %}
+            <img src="{% static 'blog/images/default_pfp.png' %}" class="card-img">
+        {% endif %}
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">  <a href="{% url 'show_profile_page' post.author.profile.id %}">{{ post.author.first_name}} {{ post.author.last_name }}</a></h5>
+          <p class="card-text">{{ post.author.profile.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Sekcja komentarzy --> 
+<hr>
+<br/>
+<h2>Comments</h2>
+
+{% if not post.comments.all %}
+    <p>No comments yet.</p>
+{% else %}
+    {% for comment in post.comments.all %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ comment.name }} - {{ comment.date_added }}</h5>
+                <p class="card-text">{{ comment.body }}</p>
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+{% endif %}
+
+{% if user.is_authenticated %}
+    <h3><a href="{% url 'add_comment' post.pk %}">Add a comment</a></h3>
+{% else %}
+    <p>You must be logged in to comment.</p>
+{% endif %}
+
 <br/><br/>
-<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
 
 {% endblock %}
