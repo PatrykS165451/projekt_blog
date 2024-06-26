@@ -27,7 +27,7 @@
 <img src="{{ post.header_image.url}}"><br/><br/>
 {% endif %}
 
-{{ post.body }}
+{{ post.body|safe }}
 
 <br/>
 
@@ -46,6 +46,31 @@
       <div class="col-md-10">
         <div class="card-body">
           <h5 class="card-title">  <a href="{% url 'show_profile_page' post.author.profile.id %}">{{ post.author.first_name}} {{ post.author.last_name }}</a></h5>
+            <p class="small text-muted">
+                {% if post.author.profile.website_url %}
+                <a href="{{ post.author.profile.website_url }}">Website</a>
+                {% endif %}
+    
+                {% if post.author.profile.facebook_url %}
+                    | <a href="{{ post.author.profile.facebook_url }}">Facebook</a>
+                {% endif %}
+    
+                {% if post.author.profile.twitter_url %}
+                    | <a href="{{ post.author.profile.twitter_url }}">Twitter</a>
+                {% endif %}
+    
+                {% if post.author.profile.instagram_url %}
+                 | <a href="{{ post.author.profile.instagram_url }}">Instagram</a>
+                {% endif %}
+    
+                {% if post.author.profile.youtube_url %}
+                    | <a href="{{ post.author.profile.youtube_url }}">Youtube</a>
+                {% endif %}
+    
+                {% if post.author.profile.linkedin_url %}
+                    | <a href="{{ post.author.profile.linkedin_url }}">LinkedIn</a>
+                {% endif %}
+                </p>
           <p class="card-text">{{ post.author.profile.bio }}</p>
         </div>
       </div>
