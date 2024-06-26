@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title_tag }} - My Blog{% endblock %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+<small>By: {{ post.author }} - {{ post.post_date }} &emsp;
+    {% if user.is_authenticated %}
+     {% if user.id == post.author_id %}
+        <a href="{% url 'update_post' post.pk %}" class="btn btn-outline-info btn-sm">Edit</a> &emsp;
+        <a href="{% url 'delete_post' post.pk %}" class="btn btn-outline-danger btn-sm">Delete</a></small><br/>
+        {% endif %}
+    {% endif %}
+<hr>
+<br/>
+{{ post.body }}
+
+<br/><br/>
+<a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+
+{% endblock %}
