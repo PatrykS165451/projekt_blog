@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime, date
-from ckeditor.fields import RichTextField
+#from ckeditor.fields import RichTextField
 # Create your models here.
 
 class Profile(models.Model):
@@ -38,7 +38,8 @@ class Post(models.Model):
     category = models.CharField(max_length=255)
     snippet = models.CharField(max_length=255, default='Click the link above to read more!')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    body = RichTextField(blank=True, null=True)
+    #body = RichTextField(blank=True, null=True)
+    body = models.TextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
 
     def __str__(self):

@@ -22,27 +22,27 @@
           <p class="small text-muted">
 
             {% if page_user.website_url %}
-            <a href="{{ page_user.website_url }}">Website</a>
+            <a href="https://{{ page_user.website_url }}">Website</a>
             {% endif %}
 
             {% if page_user.facebook_url %}
-                | <a href="{{ page_user.facebook_url }}">Facebook</a>
+                | <a href="https://{{ page_user.facebook_url }}">Facebook</a>
             {% endif %}
 
             {% if page_user.twitter_url %}
-                | <a href="{{ page_user.twitter_url }}">Twitter</a>
+                | <a href="https://{{ page_user.twitter_url }}">Twitter</a>
             {% endif %}
 
             {% if page_user.instagram_url %}
-               | <a href="{{ page_user.instagram_url }}">Instagram</a>
+               | <a href="https://{{ page_user.instagram_url }}">Instagram</a>
             {% endif %}
             
             {% if page_user.youtube_url %}
-                | <a href="{{ page_user.youtube_url }}">Youtube</a>
+                | <a href="https://{{ page_user.youtube_url }}">Youtube</a>
             {% endif %}
 
             {% if page_user.linkedin_url %}
-                | <a href="{{ page_user.linkedin_url }}">LinkedIn</a>
+                | <a href="https://{{ page_user.linkedin_url }}">LinkedIn</a>
             {% endif %}
             </p>
           <p class="card-text">{{ page_user.bio }}</p>
